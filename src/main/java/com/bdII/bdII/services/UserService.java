@@ -1,10 +1,9 @@
-package com.mongo.mongotest.services;
+package com.bdII.bdII.services;
 
-import com.mongo.mongotest.entities.User;
-import com.mongo.mongotest.repositories.UserRepository;
+import com.bdII.bdII.entities.User;
+import com.bdII.bdII.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
