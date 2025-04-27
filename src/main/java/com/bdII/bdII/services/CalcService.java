@@ -14,7 +14,7 @@ public class CalcService {
     @Autowired
     private CalcRepository repository;
 
-    public List<Calc> fetchAllCalculationsByUserId(Long userId) {
+    public List<Calc> findAllCalculationsByUserId(Long userId) {
         return repository.findAllById(Collections.singleton(userId));
     }
 
