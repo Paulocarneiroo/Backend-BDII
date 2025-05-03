@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "tb_user")
 @Getter
 @Setter
@@ -15,4 +17,6 @@ public class User {
     private String name;
     private String email;
     private String password;
+
+    private List<Calc> calcs;
 }

@@ -19,24 +19,30 @@ public class CalcController {
     private CalcService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Calc>> findAllCalculationsByUserId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findAllCalculationsByUserId(id));
+    public ResponseEntity<Optional<List<Calc>>> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Calc> insertCalc(@RequestBody Calc calc) {
-        calc = service.save(calc);
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(calc.getId()).toUri();
+    @PostMapping("/{userId}")
+    public ResponseEntity<Calc> insertCalc(@PathVariable Long userId, @RequestBody Calc calc) {
+        Optional<Calc> savedCalc = service.save(userId, calc);
 
-        return ResponseEntity.created(uri).body(calc);
+        if (savedCalc.isPresent()) {
+            URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(/* savedCalc.get().getId() */).toUri();
+
+            return ResponseEntity.created(uri).body(savedCalc.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
+
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAllCalculationsByUserId(@PathVariable Long id) {
-        service.deleteAllCalculationsByUserId(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
