@@ -34,9 +34,9 @@ public class CalcController {
         return ResponseEntity.created(uri).body(calc);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAllCalculationsByUserId(@PathVariable Long id) {
-        service.deleteAllCalculationsByUserId(id);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteAllCalculationsByUserId(@PathVariable Long userId) {
+        service.deleteAllCalculationsByUserId(userId);
         return ResponseEntity.noContent().build();
     }
 

@@ -19,7 +19,7 @@ public class Calc {
 
     private double res;
 
-    private Date createdDate;
+    private Date createdDate = new Date();
 
     private String situation;
 

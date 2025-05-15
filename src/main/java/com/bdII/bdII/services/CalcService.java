@@ -20,7 +20,7 @@ public class CalcService {
     }
 
     public void deleteAllCalculationsByUserId(Long userId) {
-        repository.deleteAllById(Collections.singleton(userId));
+        repository.deleteAllByUserId(userId);
     }
 
     public boolean deleteCalcByUserIdAndCalcId(Long userId, Long calcId) {

@@ -11,4 +11,6 @@ public interface CalcRepository extends MongoRepository<Calc, Long> {
 
     Optional<Calc> findByIdAndUserId(Long id, Long userId);
 
+    void deleteAllByUserId(Long userId);
+
 }
