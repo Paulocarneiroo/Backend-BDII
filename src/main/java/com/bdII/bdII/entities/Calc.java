@@ -23,4 +23,6 @@ public class Calc {
 
     private String situation;
 
+    private Long userId;
+
 }

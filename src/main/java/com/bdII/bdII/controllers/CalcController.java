@@ -39,4 +39,14 @@ public class CalcController {
         service.deleteAllCalculationsByUserId(id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{userId}/{id}")
+    public ResponseEntity<String> deleteCalc(@PathVariable Long userId, @PathVariable Long id) {
+        boolean deleted = service.deleteCalcByUserIdAndCalcId(userId, id);
+        if (deleted) {
+            return ResponseEntity.ok("Cálculo deletado com sucesso.");
+        } else {
+            return ResponseEntity.status(404).body("Cálculo não encontrado para o usuário informado.");
+        }
+    }
 }

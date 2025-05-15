@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CalcService {
@@ -15,11 +16,20 @@ public class CalcService {
     private CalcRepository repository;
 
     public List<Calc> findAllCalculationsByUserId(Long userId) {
-        return repository.findAllById(Collections.singleton(userId));
+        return repository.findByUserId(userId);
     }
 
     public void deleteAllCalculationsByUserId(Long userId) {
         repository.deleteAllById(Collections.singleton(userId));
+    }
+
+    public boolean deleteCalcByUserIdAndCalcId(Long userId, Long calcId) {
+        Optional<Calc> calcOptional = repository.findByIdAndUserId(calcId, userId);
+        if (calcOptional.isPresent()) {
+            repository.deleteById(calcId);
+            return true;
+        }
+        return false;
     }
 
     public Calc save(Calc calc) {
