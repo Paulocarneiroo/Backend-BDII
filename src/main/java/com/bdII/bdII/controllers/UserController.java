@@ -23,16 +23,9 @@ public class UserController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> findById(@PathVariable String id) {
-        return ResponseEntity.ok(service.findById(id));
-    }
-
-    @GetMapping("/email")
-    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
-        return service.getUserByEmail(email)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/{email}")
+    public ResponseEntity<Optional<User>> findById(@PathVariable String email) {
+        return ResponseEntity.ok(service.findById(email));
     }
 
     @PostMapping
@@ -41,20 +34,20 @@ public class UserController {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(user.getId()).toUri();
+                .buildAndExpand(user.getEmail()).toUri();
 
         return ResponseEntity.created(uri).body(user);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user){
-        user = service.update(id, user);
-        return ResponseEntity.ok(user);
+    @PutMapping(value = "/{email}")
+    public ResponseEntity<User> update(@PathVariable String email, @RequestBody User user){
+        user.setEmail(email);
+        return ResponseEntity.ok(service.update(email, user));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
-        service.delete(id);
+    @DeleteMapping(value = "/{email}")
+    public ResponseEntity<Void> delete(@PathVariable String email) {
+        service.delete(email);
         return ResponseEntity.noContent().build();
     }
 }
